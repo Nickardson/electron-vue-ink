@@ -1,0 +1,2 @@
+# Ignore any built ink JSON files.
+*.ink.json
