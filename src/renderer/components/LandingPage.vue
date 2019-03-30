@@ -7,7 +7,11 @@
       </div>
 
       <div class="right-side">
-        <span class="title">Welcome to your new project!</span>
+        <div class="title">Welcome to your new project!</div>
+
+        <button @click="loadInkFile('static/ink/cyclical.ink.json')">Load Cyclical Sample</button>
+        <button @click="loadInkFile('static/ink/tunnels.ink.json')">Load Tunnels Sample</button>
+
         <system-information></system-information>
 
         <div class="doc">
@@ -49,13 +53,17 @@ export default {
     storyContent: null,
   }),
   mounted() {
-    axios
-      .get('static/ink/main.ink.json')
-      .then((response) => {
-        this.storyContent = response.data;
-      });
+    this.loadInkFile('static/ink/cyclical.ink.json');
   },
   methods: {
+    loadInkFile(filePath) {
+      axios
+        .get(filePath)
+        .then((response) => {
+          this.storyContent = response.data;
+        });
+    },
+
     open(link) {
       this.$electron.shell.openExternal(link);
     },
@@ -104,6 +112,7 @@ main > div {
 .left-side {
   display: flex;
   flex-direction: column;
+  padding: 1em;
 }
 
 .welcome {

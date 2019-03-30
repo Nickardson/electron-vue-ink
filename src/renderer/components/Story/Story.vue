@@ -26,6 +26,7 @@
 
 <script>
 import StoryParagraph from './StoryParagraph';
+import StoryChoiceBreak from './StoryChoiceBreak';
 const inkjs = require('inkjs');
 
 export default {
@@ -39,8 +40,8 @@ export default {
     storyContent(newVal) {
       this.story = new inkjs.Story(newVal);
 
-      // start the story
-      this.continueStory();
+      // start the story from scratch
+      this.restart();
     },
   },
   data() {
@@ -91,6 +92,11 @@ export default {
 
       // select the story choice
       this.story.ChooseChoiceIndex(choice.index);
+
+      // add a line to indicate the boundaries of a choice
+      this.storyParts.push({
+        component: StoryChoiceBreak,
+      });
 
       // continue the story
       this.continueStory();
