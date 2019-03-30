@@ -8,7 +8,7 @@
 # install dependencies
 npm install
 
-# build ink files
+# build ink files upon changes
 npm run ink:watch
 
 # serve with hot reload at localhost:9080
