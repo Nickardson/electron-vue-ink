@@ -3,14 +3,14 @@
     <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
     <main>
       <div class="left-side">
-        <story :storyContent="storyContent"></story>
+        <stacked-story v-if="storyLayout === 'stacked'" :storyContent="storyContent"></stacked-story>
       </div>
 
       <div class="right-side">
         <div class="title">Welcome to your new project!</div>
 
-        <button @click="loadInkFile('static/ink/cyclical.ink.json')">Load Cyclical Sample</button>
-        <button @click="loadInkFile('static/ink/tunnels.ink.json')">Load Tunnels Sample</button>
+        <button @click="loadInkFileAsStacked('static/ink/cyclical.ink.json')">Stacked Cyclical Sample</button>
+        <button @click="loadInkFileAsStacked('static/ink/tunnels.ink.json')">Stacked Tunnels Sample</button>
 
         <system-information></system-information>
 
@@ -41,16 +41,17 @@
 import axios from 'axios';
 
 import SystemInformation from './LandingPage/SystemInformation';
-import Story from './Story/Story';
+import StackedStory from './Story/StackedStory';
 
 export default {
   name: 'landing-page',
   components: {
     SystemInformation,
-    Story,
+    StackedStory,
   },
   data: () => ({
     storyContent: null,
+    storyLayout: 'stacked',
   }),
   mounted() {
     this.loadInkFile('static/ink/cyclical.ink.json');
@@ -62,6 +63,11 @@ export default {
         .then((response) => {
           this.storyContent = response.data;
         });
+    },
+
+    loadInkFileAsStacked(filePath) {
+      this.storyLayout = 'stacked';
+      this.loadInkFile(filePath);
     },
 
     open(link) {
