@@ -4,6 +4,7 @@
     <main>
       <div class="left-side">
         <stacked-story v-if="storyLayout === 'stacked'" :storyContent="storyContent"></stacked-story>
+        <conversation-story v-if="storyLayout === 'conversation'" :storyContent="storyContent"></conversation-story>
       </div>
 
       <div class="right-side">
@@ -11,6 +12,9 @@
 
         <button @click="loadInkFileAsStacked('static/ink/cyclical.ink.json')">Stacked Cyclical Sample</button>
         <button @click="loadInkFileAsStacked('static/ink/tunnels.ink.json')">Stacked Tunnels Sample</button>
+
+        <br/><br/>
+        <button @click="loadInkFileAsConversation('static/ink/conversational.ink.json')">Conversation Styled Sample</button>
 
         <system-information></system-information>
 
@@ -42,12 +46,14 @@ import axios from 'axios';
 
 import SystemInformation from './LandingPage/SystemInformation';
 import StackedStory from './Story/StackedStory';
+import ConversationStory from './Story/ConversationStory';
 
 export default {
   name: 'landing-page',
   components: {
     SystemInformation,
     StackedStory,
+    ConversationStory,
   },
   data: () => ({
     storyContent: null,
@@ -67,6 +73,11 @@ export default {
 
     loadInkFileAsStacked(filePath) {
       this.storyLayout = 'stacked';
+      this.loadInkFile(filePath);
+    },
+
+    loadInkFileAsConversation(filePath) {
+      this.storyLayout = 'conversation';
       this.loadInkFile(filePath);
     },
 

@@ -30,9 +30,6 @@ import StoryChoiceBreak from './StoryChoiceBreak';
 const inkjs = require('inkjs');
 
 export default {
-  components: {
-    StoryParagraph,
-  },
   props: {
     storyContent: null,
   },
